@@ -1,7 +1,7 @@
 package com.sherpa.ds.algorithms
 
 /**
-  * Created by sherpa on 11/7/16.
+  * Created by Ashish Nagdev on 11/7/16.
   */
 object VectorCorelations {
 
