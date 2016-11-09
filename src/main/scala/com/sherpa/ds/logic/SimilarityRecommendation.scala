@@ -6,26 +6,14 @@ import com.sherpa.ds.algorithms.VectorCorelations._
 import com.sherpa.ds.algorithms.VectorSimilarities._
 import com.sherpa.ds.logic.SimilarityRecommendation._
 import com.sherpa.ds.logic.TopKRecommendations._
+import org.apache.spark.rdd.RDD
+
+import scala.collection.Map
 
 /**
   * Created by Ashish Nagdev on 11/7/16.
   */
-class SimilarityRecommendation(sc: SparkContext) {
-
-  // get movie names keyed on id
-  val movies = sc.textFile(MOVIES_FILENAME)
-    .map(line => {
-      val fields = line.split("\\|")
-      (fields(0).toInt, fields(1))
-    })
-  val movieNames = movies.collectAsMap() // for local use to map id <-> movie name for pretty-printing
-
-  // extract (userid, movieid, rating) from ratings data
-  val ratings = sc.textFile(TRAIN_FILENAME)
-    .map(line => {
-      val fields = line.split("\t")
-      (fields(0).toInt, fields(1).toInt, fields(2).toInt)
-    })
+class SimilarityRecommendation(ratings: RDD[(Int, Int, Int)], movieNames: Map[Int, String]) {
 
   // get num raters per movie, keyed on movie id
   val numRatersPerMovie = ratings
@@ -98,12 +86,10 @@ class SimilarityRecommendation(sc: SparkContext) {
     })
 
   samplingRecommendation(similarities, movieNames)
+
 }
 
 object SimilarityRecommendation {
-
-  val TRAIN_FILENAME = "movies.base"
-  val MOVIES_FILENAME = "movies.item"
 
   val PRIOR_COUNT = 10
   val PRIOR_CORRELATION = 0

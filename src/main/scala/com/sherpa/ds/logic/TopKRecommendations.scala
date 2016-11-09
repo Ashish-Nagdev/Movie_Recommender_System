@@ -12,7 +12,7 @@ object TopKRecommendations {
   def samplingRecommendation(similarities: RDD[((Int, Int), (Double, Double, Double, Double))], movieNames:Map[Int,String]): Unit = {
     val sample = similarities.filter(m => {
       val movies = m._1
-      (movieNames(movies._1).contains("Star Wars (1977)"))
+      (movieNames(movies._1).contains("Dead Presidents (1995)"))
     })
 
     // collect results, excluding NaNs if applicable
