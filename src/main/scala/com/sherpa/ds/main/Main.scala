@@ -15,7 +15,7 @@ object Main extends App {
     */
   val conf = new SparkConf()
     .setAppName("Similar_Movie_Recommendation")
-    .setMaster("spark://localhost:7077")
+    .setMaster("local")
   val sc = new SparkContext(conf)
   new SimilarityRecommendation(sc)
 
