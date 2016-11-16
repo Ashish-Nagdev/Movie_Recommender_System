@@ -1,4 +1,4 @@
-# Movie_Recommender_System using classifier & Vector factorization
+# Movie_Recommender_System Sample using Similarity Algorithms by calculating classifier & Vector factorization methods
 
 Recommendations are usually represented as ranked lists of items. The ranking of these items are based on user’s preferences and other constraints. In computing this ranking, the system captures the user’s preferences either explicitly by ratings for products, or implicitly by user’s actions, navigation to a product page as a sign of preference.
 
