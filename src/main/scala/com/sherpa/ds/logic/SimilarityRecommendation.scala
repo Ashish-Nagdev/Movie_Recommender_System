@@ -15,14 +15,14 @@ import scala.collection.Map
   */
 class SimilarityRecommendation(ratings: RDD[(Int, Int, Int)], movieNames: Map[Int, String]) {
 
+  val groupByMovie = ratings.groupBy(tup => tup._2)
+
   // get num raters per movie, keyed on movie id
-  val numRatersPerMovie = ratings
-    .groupBy(tup => tup._2)
+  val numRatersPerMovie = groupByMovie
     .map(grouped => (grouped._1, grouped._2.size))
 
   // join ratings with num raters on movie id
-  val ratingsWithSize = ratings
-    .groupBy(tup => tup._2)
+  val ratingsWithSize = groupByMovie
     .join(numRatersPerMovie)
     .flatMap(joined => {
       joined._2._1.map(f => (f._1, f._2, f._3, joined._2._2))
